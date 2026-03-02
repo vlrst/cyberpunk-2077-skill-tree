@@ -7,6 +7,7 @@ from Subs.Cool import *
 from Subs.Intelligence import * 
 from Subs.Reflexes import * 
 from Subs.Technical_Ability import * 
+from VARS import * 
 
 print("\n\n")
 
