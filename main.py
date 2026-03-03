@@ -8,14 +8,47 @@ from Subs.Intelligence import *
 from Subs.Reflexes import * 
 from Subs.Technical_Ability import * 
 from VARS import * 
+from ollama import chat as MODEL
+from ollama import ChatResponse
+
+stream = MODEL(
+    model='gemma3',
+     messages=[{'role': 'user', 'content': prompt}],
+    stream=True,
+)
+
+model_response = ""
+
+for chunk in stream:
+  model_response += (str(chunk['message']['content']))
+  #print(chunk['message']['content'], end='', flush=True)
+
+
+#print(type(list(model_response)))
+
+model_response = model_response.split(" ")
+count = 0
+indexes = [str(x) for x in range(1, 20)]
+for word in model_response:
+  
+  if word[0] == "[":
+    for letter in word:
+        if letter == "]":
+           break
+        else:
+           indexes[count-1] += letter
+    count += 1
+  print(word)
+
+print(indexes)
+
+
+
+
+
 
 print("\n\n")
 
-Body.details()
-Cool.details()
-Intelligence.details()
-Reflexes.details()
-Technical_Ability.details()
 
 
 # start with the parent first, then go left to right when creating children
@@ -38,7 +71,14 @@ Body_Levels = [
     []
 ]
 
+# Body.details()
+# Cool.details()
+# Intelligence.details()
+# Reflexes.details()
+# Technical_Ability.details()
 
-for level in Body_Levels[0]:
-    for line in level.details():
-        print(line)
+
+
+# for level in Body_Levels[0]:
+#     for line in level.details():
+#         print(line)
