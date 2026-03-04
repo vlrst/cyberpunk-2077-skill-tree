@@ -16,3 +16,4 @@ class Skill:
         f"[CHILD]: {self.child}\n----------"]
     
     
+    
