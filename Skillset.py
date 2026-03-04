@@ -12,7 +12,7 @@ from VARS import *
 from ollama import chat as MODEL
 from ollama import ChatResponse
 
-
+# start with the parent first, then go left to right when creating children
 PAINKILLER = Skill("PAINKILLER", Body, "Unlocks slow health regen in combat.", None, ["Comeback_Kid", "Dorph_Head", "Speed_Junkie", "Army_Of_One"])
 DORPH_HEAD = Skill("DORPH-HEAD", Body, "When using Blood Pump Cyberware or a Health Item: +100% mitigation chance for 2 sec.", PAINKILLER, None)
 COMEBACK_KID = Skill("COMEBACK KID", Body, "+60% Health Regen Rate while sprinting", PAINKILLER, None)
@@ -35,3 +35,19 @@ skills_description = []
 for level in Body_Levels[0]:
   skills_description.append(level.description)
 print(skills_description)
+print(type(skills_description))
+
+
+
+# sub_index = {1: "Body", 2: "Cool", 3: "Intelligence", 4: "Reflexes", 5:"Technical Ability"}
+# subSkills = [[x] for x in range(5)]
+# CCOUNTER = 0
+
+# for skill in skills_description:
+#   subSkills[CCOUNTER].append(skill)
+#   CCOUNTER += 1 
+# # skills_description.split('\n')
+
+# # print(skills_description)
+
+# print(subSkills)
