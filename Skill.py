@@ -15,5 +15,7 @@ class Skill:
         f"[PARENT]: {None if self.parent == None else self.parent.name} ({self.parent})",
         f"[CHILD]: {self.child}\n----------"]
     
+
+    
     
     

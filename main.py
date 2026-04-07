@@ -1,5 +1,6 @@
 import os
 import sys
+import io 
 import numpy
 from Skillset import * 
 from Skill import * 
@@ -12,6 +13,9 @@ from VARS import *
 from ollama import chat as MODEL
 from ollama import ChatResponse
 import datetime
+
+output_buffer = io.StringIO()
+sys.stdout = output_buffer
 
 
 prompt = f'''
@@ -47,16 +51,23 @@ Rules:
 - Output ONLY the sections listed below.
 - Even if a section has no skills, write "None".
 
+The output should only contain the skill's names that ONLY are included from this list:
+{allSkillNames}
 Output format (exactly like this):
 
-[Body]: skill1, skill2, skill3 OR None
-[Cool]: skill1, skill2 OR None
-[Intelligence]: skill1, skill2 OR None
-[Reflexes]: skill1, skill2 OR None
-[Technical Ability]: skill1, skill2 OR None
+
+[Body]: (skill1), (skill2), (skill3) 
+[Cool]: (skill1), (skill2) 
+[Intelligence]: (skill1), (skill2) 
+[Reflexes]: (skill1), (skill2) 
+[Technical Ability]: (skill1), (skill2) 
 
 Do not output anything else besides these sections and the skills.
+
 """
+print("start body levels")
+print(Body_Levels)
+print("end body levels")
 
 stream = MODEL(
     model='gemma3',
@@ -87,7 +98,11 @@ subSkillUnecessary = ""
 for line in subSkills:
 
   if line != "DELETE_THIS":
-    print(f"'{line}: [INDEX OF {counter}]'")
+    print(f"{line}")
+    for skill in allSkills:
+      # if skill.description == line:
+      #print(f"'{skill.name}: [INDEX OF {counter}]'")
+      pass
     counter += 1
     for char in line:
       if char != "]":
@@ -126,5 +141,15 @@ for line in subSkills:
 # print(skills_description)
 
 
+captured_text = output_buffer.getvalue()
+
+
+try:
+   with open(f"{datetime.datetime.now()}", "x") as f:    
+    f.write(captured_text)
+except Exception as e:
+  pass
 
 print(f"Time of run: {datetime.datetime.now()}")
+
+sys.stdout
