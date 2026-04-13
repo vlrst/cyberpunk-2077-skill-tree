@@ -145,7 +145,7 @@ captured_text = output_buffer.getvalue()
 
 
 try:
-   with open(f"{datetime.datetime.now()}", "x") as f:    
+   with open(f"TXT/{datetime.datetime.now()}", "x") as f:    
     f.write(captured_text)
 except Exception as e:
   pass
