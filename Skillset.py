@@ -29,9 +29,78 @@ BULLET_BALLET = Skill("BULLET BALLET", Body, "-25% bullet spread when moving.", 
 DIE_DIE_DIE.child = [LIKE_A_FEATHER, DONT_STOP_ME_NOW, BULLET_BALLET]
 
 
+
+FURY_ROAD = Skill("FURY ROAD", Body, "In vehicle collisions: +50% damage to enemy vehicles and their occupants in collisions caused by you. -50% damage to your vehicles in collisions caused by enemies. You take no damage as an occupant in vehicle collisions.", None, None)
+
+
+
+WRECKING_BALL = Skill("WRECKING BALL", Body, "Only affects blunt weapons. Level 1: -15% Stamina Cost for attacks with Blunt Weapons. Level 2: Allows you to barrel into enemies while sprinting and blocking with Blunt Weapons, causing damage and a chance to knock them down.", None, None)
+KINETIC_ABSORPTION = Skill("KINETIC ABSORPTION", Body, "Only affects blunt weapons. Blocking an attack gives: +10% Stamina +30% Damage with Blunt Weapons for 5 sec.", WRECKING_BALL, None)
+BREAKTHROUGH = Skill("BREAKTHROUGH", Body, "Only affects blunt weapons. -40% enemy Armor for 7 sec. after hitting them with a Strong Attack.", WRECKING_BALL, None)
+CLAPBACK = Skill("CLAPBACK", Body, "Only affects blunt weapons. +100% Knockdown chance with Defensive attacks. Cooldown: 10 sec. +100% Stun Chance with Counterattacks.", WRECKING_BALL, None)
+FLY_SWATTER = Skill("FLY SWATTER", Body, "Only affects blunt weapons. -40% incoming ranged damage when blocking with Blunt Weapons", WRECKING_BALL, None)
+WRECKING_BALL.child = [KINETIC_ABSORPTION, BREAKTHROUGH, CLAPBACK, FLY_SWATTER]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SPONTANEOUS_OBLITERATION = Skill("SPONTANEOUS OBLITERATION", Body, "Only affects Shotguns, LMGs, and HMGs. Level 1: -15% recoil at low Stamina Level2: +10% Damage against nearby enemies Level 3: Unlocks Obliterate - the ability to sometimes instantly kill and dismember enemies at low health The chance increases as enemy health decreases (max. 20% Obliterate chance).", None, None)
+SKULLCRACKER = Skill("SKULLCRACKER", Body, "Only affects Shotguns, LMGs, and HMGs. Increases damage of Quick Melee attacks as Stamina decreases (max. 200% at 0 Stamina).", SPONTANEOUS_OBLITERATION, None)
+CLOSE_QUARTERS_CARNAGE = Skill("CLOSE-QUARTERS CARNAGE", Body, "Only affects Shotguns, LMGs, and HMGs. +20% reload speed for 8 sec. after dismembering an enemy.", SPONTANEOUS_OBLITERATION, None)
+DREAD = Skill("DREAD", Body, "Only affects Shotguns, LMGs, and HMGs. -15% enemy armor when using ranged attacks. Dismemberment spreads the effect to nearby enemies.", SPONTANEOUS_OBLITERATION, None)
+RUSH_OF_BLOOD = Skill("RUSH OF BLOOD", Body, "Only affects Shotguns, LMGs, and HMGs. Increased chance to Obliterate enemies with ranged attacks at close range (max. 10%).", SPONTANEOUS_OBLITERATION, None)
+SPONTANEOUS_OBLITERATION.child = [SKULLCRACKER, CLOSE_QUARTERS_CARNAGE, DREAD, RUSH_OF_BLOOD]
+
+
+
+ADRENALINE_RUSH = Skill("ADRENALINE RUSH", Body, "Level 1: +35 Max Health Level 2: +20% Health Regen Bonus to all Health Regen effects from all sources. Level 3: Unlocks Adrenaline Rush mode. In addition to their base effects, Blood Pump cyberware and Health Items now also give Adrenaline equal to 30% Max Health (up to a max of 50% Max Health) Adrenaline is indicated by a yellow bar and acts like extra Health by absorbing damage it also decays over time. Adrenaline Rush will remain active as long as you have Adrenaline available.", None, None)
+UNSTOPPABLE_FORCE = Skill("UNSTOPPABLE FORCE", Body, "When Adrenaline Rush is active: Gain immunity to movement penalties and non-damaging status effects such as Knockdown, Blinding, etc", ADRENALINE_RUSH, None)
+JUGGERNAUT = Skill("JUGGERNAUT", Body, "When Adrenaline Rush is active: +20% Movement Speed +10% Damage", ADRENALINE_RUSH, None)
+CALM_MIND = Skill("CALM MIND", Body, "When Adrenaline Rush is active: +3 sec. delay before Adrenaline begins to decay.", ADRENALINE_RUSH, None)
+ADRENALINE_RUSH.child =[UNSTOPPABLE_FORCE, JUGGERNAUT, CALM_MIND]
+
+
+
+BLOODLUST = Skill("BLOODLUST", Body, "Only affects Shotguns, LMGs, and HMGs. When Adrenaline Rush is active: +50 Adrenaline on dismemberment of a nearby enemy.", [RUSH_OF_BLOOD, JUGGERNAUT])
+
+
+
+
+
+
+# THIS SECTION WILL CONNECT THE PARENTS WITH OTHER PARENTS
+
+
+PAINKILLER.child.append(ADRENALINE_RUSH) 
+ADRENALINE_RUSH.parent = PAINKILLER # adding the parents later for organization and management
+
+DIE_DIE_DIE.child.append(SPONTANEOUS_OBLITERATION)
+SPONTANEOUS_OBLITERATION.parent = DIE_DIE_DIE
+
+
+
+
+
+# this is how the row ordering works
+# [
+#    row 3
+#    row 2
+#    row 1
+# ]
 allSkills = [
-  LIKE_A_FEATHER, DIE_DIE_DIE, DONT_STOP_ME_NOW, BULLET_BALLET, 
-  DORPH_HEAD, COMEBACK_KID, PAINKILLER, SPEED_JUNKIE, ARMY_OF_ONE                                          
+  SPONTANEOUS_OBLITERATION, SKULLCRACKER, CLOSE_QUARTERS_CARNAGE, DREAD, RUSH_OF_BLOOD, ADRENALINE_RUSH, UNSTOPPABLE_FORCE, JUGGERNAUT, CALM_MIND # row 3
+  LIKE_A_FEATHER, DIE_DIE_DIE, DONT_STOP_ME_NOW, BULLET_BALLET, WRECKING_BALL, KINETIC_ABSORPTION, BREAKTHROUGH, CLAPBACK, FLY_SWATTER, # row 2 
+  DORPH_HEAD, COMEBACK_KID, PAINKILLER, SPEED_JUNKIE, ARMY_OF_ONE, FURY_ROAD, # row 1
 ]
 
 allSkillNames = []
@@ -41,8 +110,9 @@ for skill in allSkills:
 
 # pretty sure this line of code will soon be rendered useless
 Body_Levels = [
-    [LIKE_A_FEATHER, DIE_DIE_DIE, DONT_STOP_ME_NOW, BULLET_BALLET], 
-    [DORPH_HEAD, COMEBACK_KID, PAINKILLER, SPEED_JUNKIE, ARMY_OF_ONE],
+    [SPONTANEOUS_OBLITERATION, SKULLCRACKER, CLOSE_QUARTERS_CARNAGE, DREAD, RUSH_OF_BLOOD], [ADRENALINE_RUSH, UNSTOPPABLE_FORCE, JUGGERNAUT, CALM_MIND] # row 3
+    [LIKE_A_FEATHER, DIE_DIE_DIE, DONT_STOP_ME_NOW, BULLET_BALLET], [WRECKING_BALL, KINETIC_ABSORPTION, BREAKTHROUGH, CLAPBACK, FLY_SWATTER], # row 2 
+    [DORPH_HEAD, COMEBACK_KID, PAINKILLER, SPEED_JUNKIE, ARMY_OF_ONE], [FURY_ROAD], # row 1
 
 ]
 

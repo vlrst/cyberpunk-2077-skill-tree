@@ -1,0 +1,11 @@
+start body levels
+[[<Skill.Skill object at 0x10c94ead0>, <Skill.Skill object at 0x10c96ed50>, <Skill.Skill object at 0x10c94e9c0>, <Skill.Skill object at 0x10c9a7950>], [<Skill.Skill object at 0x10c931450>, <Skill.Skill object at 0x10c931590>, <Skill.Skill object at 0x1058c0590>, <Skill.Skill object at 0x10c95ec40>, <Skill.Skill object at 0x10c95ed70>]]
+end body levels
+
+--------------------
+SUBSKILLS:
+[Body]: SPEED JUNKIE, LIKE A FEATHER
+[Cool]: COMEBACK KID, DON'T STOP ME NOW
+[Intelligence]: DORPH-HEAD, PAINKILLER
+[Reflexes]: BULLET BALLET, ARMY OF ONE
+[Technical Ability]: 'No movement speed penalty with Shotguns, Light Machine Guns, and Heavy Machine Guns.', 'Level 1: +12.5% Crit Chance at low Stamina. Level 2: Increased fire rate as Stamina decreases (max. +25% at 0 Stamina). Bonus to weapon handling as Stamina decreases.'
