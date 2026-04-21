@@ -14,8 +14,11 @@ from ollama import chat as MODEL
 from ollama import ChatResponse
 import datetime
 
-output_buffer = io.StringIO()
-sys.stdout = output_buffer
+# output_buffer = io.StringIO()
+# sys.stdout = output_buffer
+
+print("THIS IS THE NUMBER OF SKILLS")
+print(len(allSkills))
 
 
 prompt = f'''
@@ -65,9 +68,9 @@ Output format (exactly like this):
 Do not output anything else besides these sections and the skills.
 
 """
-print("start body levels")
-print(Body_Levels)
-print("end body levels")
+# print("start body levels")
+# print(Body_Levels)
+# print("end body levels")
 
 stream = MODEL(
     model='gemma3',
@@ -98,7 +101,7 @@ subSkillUnecessary = ""
 for line in subSkills:
 
   if line != "DELETE_THIS":
-    print(f"{line}")
+    #print(f"{line}")                               #  THIS IS WHAT YOU ARE LOOKING FOR 
     for skill in allSkills:
       # if skill.description == line:
       #print(f"'{skill.name}: [INDEX OF {counter}]'")
@@ -141,15 +144,19 @@ for line in subSkills:
 # print(skills_description)
 
 
-captured_text = output_buffer.getvalue()
 
 
-try:
-   with open(f"TXT/{datetime.datetime.now()}", "x") as f:    
-    f.write(captured_text)
-except Exception as e:
-  pass
+# USE THIS WHEN YOU ACTUALLY WANT TO SEND THE CAPTURED TEXT TO THE FILES
+
+
+# captured_text = output_buffer.getvalue()
+
+
+# try:
+#    with open(f"TXT/{datetime.datetime.now()}", "x") as f:    
+#     f.write(captured_text)
+# except Exception as e:
+#   pass
 
 print(f"Time of run: {datetime.datetime.now()}")
 
-sys.stdout

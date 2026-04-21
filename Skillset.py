@@ -13,6 +13,18 @@ from ollama import chat as MODEL
 from ollama import ChatResponse
 
 # start with the parent first, then go left to right when creating children
+
+
+
+
+
+
+
+
+
+
+
+# ROW 1
 PAINKILLER = Skill("PAINKILLER", Body, "Unlocks slow health regen in combat.", None, None)
 DORPH_HEAD = Skill("DORPH-HEAD", Body, "When using Blood Pump Cyberware or a Health Item: +100% mitigation chance for 2 sec.", PAINKILLER, None)
 COMEBACK_KID = Skill("COMEBACK KID", Body, "+60% Health Regen Rate while sprinting", PAINKILLER, None)
@@ -20,17 +32,20 @@ SPEED_JUNKIE = Skill("SPEED JUNKIE", Body, "+60% Health Regen rate while sprinti
 ARMY_OF_ONE = Skill("ARMY OF ONE", Body, "+10% Health Regen Rate for each nearby enemy", PAINKILLER, None)
 PAINKILLER.child = [DORPH_HEAD, COMEBACK_KID, SPEED_JUNKIE, ARMY_OF_ONE]
 
+FURY_ROAD = Skill("FURY ROAD", Body, "In vehicle collisions: +50% damage to enemy vehicles and their occupants in collisions caused by you. -50% damage to your vehicles in collisions caused by enemies. You take no damage as an occupant in vehicle collisions.", None, None)
 
 
+
+
+
+
+# ROW 2
 DIE_DIE_DIE = Skill("DIE! DIE! DIE!", Body, "Level 1: +12.5% Crit Chance at low Stamina. Level 2: Increased fire rate as Stamina decreases (max. +25% at 0 Stamina). Bonus to weapon handling as Stamina decreases.", None, None)
 LIKE_A_FEATHER = Skill("LIKE A FEATHER", Body, "No movement speed penalty with Shotguns, Light Machine Guns, and Heavy Machine Guns.", DIE_DIE_DIE, None)
 DONT_STOP_ME_NOW = Skill("DON'T STOP ME NOW", Body, "When below 33% Stamina: +15% Mitigation Chance +5% Mitigation Strength", DIE_DIE_DIE, None)
 BULLET_BALLET = Skill("BULLET BALLET", Body, "-25% bullet spread when moving.", DIE_DIE_DIE, None)
 DIE_DIE_DIE.child = [LIKE_A_FEATHER, DONT_STOP_ME_NOW, BULLET_BALLET]
 
-
-
-FURY_ROAD = Skill("FURY ROAD", Body, "In vehicle collisions: +50% damage to enemy vehicles and their occupants in collisions caused by you. -50% damage to your vehicles in collisions caused by enemies. You take no damage as an occupant in vehicle collisions.", None, None)
 
 
 
@@ -42,6 +57,8 @@ FLY_SWATTER = Skill("FLY SWATTER", Body, "Only affects blunt weapons. -40% incom
 WRECKING_BALL.child = [KINETIC_ABSORPTION, BREAKTHROUGH, CLAPBACK, FLY_SWATTER]
 
 
+
+# ROW 3
 
 
 
@@ -69,9 +86,36 @@ JUGGERNAUT = Skill("JUGGERNAUT", Body, "When Adrenaline Rush is active: +20% Mov
 CALM_MIND = Skill("CALM MIND", Body, "When Adrenaline Rush is active: +3 sec. delay before Adrenaline begins to decay.", ADRENALINE_RUSH, None)
 ADRENALINE_RUSH.child =[UNSTOPPABLE_FORCE, JUGGERNAUT, CALM_MIND]
 
+BLOODLUST = Skill("BLOODLUST", Body, "Only affects Shotguns, LMGs, and HMGs. When Adrenaline Rush is active: +50 Adrenaline on dismemberment of a nearby enemy.", [RUSH_OF_BLOOD, JUGGERNAUT])
 
+
+
+QUAKE = Skill("QUAKE", Body, "Only affects Blunt Weapons. Level 1: -15% Stamina Cost for attacks with Blunt Weapons. Level 2: +20% attack speed with Blunt Weapons. Level 3: Press Q to violently slam the ground, damaging and staggering nearby enemies with a chance of Knocdown. Quake can also be performed from middair (a Superhero Landing) Cooldown: 10 sec.", None, None)
+AFTERSHOCK = Skill("AFTERSHOCK", Body, "Only affects Blunt Weapons. +30 Stamina for each enemy hit with Quake.", QUAKE, None)
+EPICENTER = Skill("EPICENTER", Body, "Only affects Blunt Weapons. When Quake is performed from midair (a Superhero Landing), its area effect and damage scale with your fall speed and fall distance.", QUAKE, None)
+QUAKE.child = [AFTERSHOCK, EPICENTER]
+
+
+
+
+
+
+
+# THE TOP SKILLS
+
+RIP_AND_TEAR = Skill("RIP AND TEAR", Body, "Only affects Shotguns. +100% damage for the next Quick Melee Attack after shooting an enemy with a Shotgun +100 damage for the next Shotgun shot after hitting an enemy with a Quick Melee Attack.", SPONTANEOUS_OBLITERATION, None)
+ONSLAUGHT = Skill("ONSLAUGHT", Body, "Only affects LMGs. +20% ammo refill after neutralizing an enemy with a Light Machine Gun.", SPONTANEOUS_OBLITERATION, None)
+PAIN_TO_GAIN = Skill("PAIN TO GAIN", Body, "When Adrenaline Rush is active: +20% Health Item recharge after neutralizing an enemy.", ADRENALINE_RUSH, None)
+FINISHER_SAVAGE_SLING = Skill("FINISHER: SAVAGE SLING", Body, "Only affects Blunt Weapons. Unlocks a Blunt Weapon Finisher. Press F when an enemy's Health is low. Enemies affected by Stun are more susceptible. Restores 20% Health Hold F to Throw the enemy instead, killing them and damaging other enemies while they land.", QUAKE, None)
+
+
+
+
+
+# DOUBLE PARENT SKILLS
 
 BLOODLUST = Skill("BLOODLUST", Body, "Only affects Shotguns, LMGs, and HMGs. When Adrenaline Rush is active: +50 Adrenaline on dismemberment of a nearby enemy.", [RUSH_OF_BLOOD, JUGGERNAUT])
+RIPPLE_EFFECT = Skill("RIPPLE EFFECT", Body, "Only affects Blunt Weapons. +15% Health for each enemy hit by Quake", [CALM_MIND, AFTERSHOCK], None)
 
 
 
@@ -88,6 +132,9 @@ DIE_DIE_DIE.child.append(SPONTANEOUS_OBLITERATION)
 SPONTANEOUS_OBLITERATION.parent = DIE_DIE_DIE
 
 
+WRECKING_BALL.child.append(QUAKE)
+QUAKE.parent = WRECKING_BALL
+
 
 
 
@@ -98,10 +145,13 @@ SPONTANEOUS_OBLITERATION.parent = DIE_DIE_DIE
 #    row 1
 # ]
 allSkills = [
-  SPONTANEOUS_OBLITERATION, SKULLCRACKER, CLOSE_QUARTERS_CARNAGE, DREAD, RUSH_OF_BLOOD, ADRENALINE_RUSH, UNSTOPPABLE_FORCE, JUGGERNAUT, CALM_MIND # row 3
-  LIKE_A_FEATHER, DIE_DIE_DIE, DONT_STOP_ME_NOW, BULLET_BALLET, WRECKING_BALL, KINETIC_ABSORPTION, BREAKTHROUGH, CLAPBACK, FLY_SWATTER, # row 2 
-  DORPH_HEAD, COMEBACK_KID, PAINKILLER, SPEED_JUNKIE, ARMY_OF_ONE, FURY_ROAD, # row 1
+    RIP_AND_TEAR, ONSLAUGHT, PAIN_TO_GAIN, FINISHER_SAVAGE_SLING,
+    SPONTANEOUS_OBLITERATION, SKULLCRACKER, CLOSE_QUARTERS_CARNAGE, DREAD, RUSH_OF_BLOOD, BLOODLUST, ADRENALINE_RUSH, UNSTOPPABLE_FORCE, JUGGERNAUT, CALM_MIND, RIPPLE_EFFECT, QUAKE, AFTERSHOCK, EPICENTER, # row 3
+    DIE_DIE_DIE, LIKE_A_FEATHER, DONT_STOP_ME_NOW, BULLET_BALLET, WRECKING_BALL, BREAKTHROUGH, KINETIC_ABSORPTION, CLAPBACK, FLY_SWATTER, # row 2 
+    PAINKILLER, DORPH_HEAD, COMEBACK_KID, SPEED_JUNKIE, ARMY_OF_ONE, FURY_ROAD # row 1
 ]
+
+
 
 allSkillNames = []
 for skill in allSkills:
@@ -109,11 +159,13 @@ for skill in allSkills:
 
 
 # pretty sure this line of code will soon be rendered useless
+# IN EACH SUBLIST, KEEP THE PARENT AS THE FIRST ELEMENT 
+#   THEN GO LEFT -> RIGHT
 Body_Levels = [
-    [SPONTANEOUS_OBLITERATION, SKULLCRACKER, CLOSE_QUARTERS_CARNAGE, DREAD, RUSH_OF_BLOOD], [ADRENALINE_RUSH, UNSTOPPABLE_FORCE, JUGGERNAUT, CALM_MIND] # row 3
-    [LIKE_A_FEATHER, DIE_DIE_DIE, DONT_STOP_ME_NOW, BULLET_BALLET], [WRECKING_BALL, KINETIC_ABSORPTION, BREAKTHROUGH, CLAPBACK, FLY_SWATTER], # row 2 
-    [DORPH_HEAD, COMEBACK_KID, PAINKILLER, SPEED_JUNKIE, ARMY_OF_ONE], [FURY_ROAD], # row 1
-
+    [RIP_AND_TEAR], [ONSLAUGHT], [PAIN_TO_GAIN], [FINISHER_SAVAGE_SLING],
+    [SPONTANEOUS_OBLITERATION, SKULLCRACKER, CLOSE_QUARTERS_CARNAGE, DREAD, RUSH_OF_BLOOD], [BLOODLUST], [ADRENALINE_RUSH, UNSTOPPABLE_FORCE, JUGGERNAUT, CALM_MIND], [RIPPLE_EFFECT], [QUAKE, AFTERSHOCK, EPICENTER], # row 3
+    [DIE_DIE_DIE, LIKE_A_FEATHER, DONT_STOP_ME_NOW, BULLET_BALLET], [WRECKING_BALL, BREAKTHROUGH, KINETIC_ABSORPTION, CLAPBACK, FLY_SWATTER], # row 2 
+    [PAINKILLER, DORPH_HEAD, COMEBACK_KID, SPEED_JUNKIE, ARMY_OF_ONE], [FURY_ROAD] # row 1
 ]
 
 skills_description = []
@@ -122,14 +174,25 @@ for level in Body_Levels:
     for skill in level:
       skills_description.append(skill.description)
 
-print(f"\n\n\nALL DESCS IN skills_description")
-i=0
-for desc in skills_description:
-  i+=1
-  print(f"{i}: {desc}")
-print(type(skills_description))
 
 
+
+
+
+
+# START OF WHAT YOU ARE LOOKING FOR
+
+
+
+
+# print(f"\n\n\nALL DESCS IN skills_description")
+# i=0
+# for desc in skills_description:
+#   i+=1
+#   print(f"{i}: {desc}")
+# print(type(skills_description))
+
+# END OF WHAT YOU ARE LOOKING FOR
 
 # sub_index = {1: "Body", 2: "Cool", 3: "Intelligence", 4: "Reflexes", 5:"Technical Ability"}
 # subSkills = [[x] for x in range(5)]

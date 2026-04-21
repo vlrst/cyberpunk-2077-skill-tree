@@ -1,0 +1,11 @@
+start body levels
+[[<Skill.Skill object at 0x10f13a990>, <Skill.Skill object at 0x10f13aa50>, <Skill.Skill object at 0x10f1fc050>, <Skill.Skill object at 0x10f1fc100>, <Skill.Skill object at 0x1033d13b0>], [<Skill.Skill object at 0x10f1aa430>], [<Skill.Skill object at 0x108467610>, <Skill.Skill object at 0x10f1d15b0>, <Skill.Skill object at 0x103502a50>, <Skill.Skill object at 0x10f1a3dd0>], [<Skill.Skill object at 0x10f1a9e80>], [<Skill.Skill object at 0x10f1aa350>, <Skill.Skill object at 0x10f1aa2e0>, <Skill.Skill object at 0x10f1aa3c0>], [<Skill.Skill object at 0x10f142cf0>, <Skill.Skill object at 0x10f142be0>, <Skill.Skill object at 0x10f1a7850>, <Skill.Skill object at 0x10f1a7950>], [<Skill.Skill object at 0x109dd3890>, <Skill.Skill object at 0x1033be0b0>, <Skill.Skill object at 0x10f10ac60>, <Skill.Skill object at 0x10f1f8670>, <Skill.Skill object at 0x109e713d0>], [<Skill.Skill object at 0x10846c590>, <Skill.Skill object at 0x10f131450>, <Skill.Skill object at 0x10f131590>, <Skill.Skill object at 0x10f15ec40>, <Skill.Skill object at 0x10f15ed70>], [<Skill.Skill object at 0x10f16ed50>]]
+end body levels
+
+--------------------
+SUBSKILLS:
+[Body]: (RUSH OF BLOOD), (LIKE A FEATHER), (BLOODLUST) 
+[Cool]: (COMEBACK KID), (DON'T STOP ME NOW) 
+[Intelligence]: (CALM MIND), (RIPPLE EFFECT) 
+[Reflexes]: (SPEED JUNKIE), (BULLET BALLET) 
+[Technical Ability]: (QUAKE), (ADRENALINE RUSH)
