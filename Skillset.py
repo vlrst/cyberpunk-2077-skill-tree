@@ -22,29 +22,29 @@ from Subs.Technical_Ability import *
 
 
 
-allSkills = [Body_Levels]
+allSkills = [Body_Levels, Cool_Levels]
 
 
-
+print(_.name for _ in allSkills)
 
 
 skills_description = []
+for levels in allSkills:
+    for level in levels:
+        print(level)
+        for skill in level:
+            print("\t", skill.name)
+            skills_description.append(skill.description)
 
-for level in Body_Levels:
-    for skill in level:
-      skills_description.append(skill.description)
 
-
-print(allSkills)
+#print(allSkills)
 
 # for x in range(len(allSkills)):
 
 #   print(f"{x+1}: {allSkills[0][x].name}")
 
 
-for level in allSkills[0]:
-    for skill in level:
-        print(skill.name)
+        
 # START OF WHAT YOU ARE LOOKING FOR
 
 
